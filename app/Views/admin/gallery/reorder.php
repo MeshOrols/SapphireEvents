@@ -79,7 +79,7 @@ $resolveMediaType = static function (?string $media) use ($extractYoutubeVideoId
                 </span>
                 <h2 class="mt-4 text-2xl font-semibold tracking-tight text-white">Reorder gallery media</h2>
                 <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-200">
-                    Drag cards into the exact sequence you want for public display, then save once you are happy with the new order.
+                    Drag cards, or type/select an exact position number on any card, then save once you are happy with the new order.
                 </p>
             </div>
             <div class="grid grid-cols-2 gap-3 sm:min-w-[240px]">
@@ -89,7 +89,7 @@ $resolveMediaType = static function (?string $media) use ($extractYoutubeVideoId
                 </div>
                 <div class="rounded-2xl border border-white/10 bg-white/10 p-4 backdrop-blur">
                     <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-300">Save Flow</p>
-                    <p class="mt-2 text-sm font-semibold text-white">Drag, review, save</p>
+                    <p class="mt-2 text-sm font-semibold text-white">Drag or type, review, save</p>
                 </div>
             </div>
         </div>
@@ -99,7 +99,7 @@ $resolveMediaType = static function (?string $media) use ($extractYoutubeVideoId
         <div class="flex flex-col gap-3 border-b border-slate-200 px-5 py-4 lg:flex-row lg:items-center lg:justify-between lg:px-6">
             <div>
                 <h3 class="text-base font-semibold text-slate-900">Media order</h3>
-                <p class="mt-1 text-sm text-slate-500">Use drag and drop to change the frontend sequence for images, uploaded videos, and YouTube items.</p>
+                <p class="mt-1 text-sm text-slate-500">Drag a card to reorder, or type/select a position number directly on any card, for images, uploaded videos, and YouTube items.</p>
             </div>
             <div class="flex flex-col gap-2 sm:flex-row">
                 <button type="button" id="gallery-order-reset" class="inline-flex items-center justify-center rounded-xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50">
@@ -149,9 +149,18 @@ $resolveMediaType = static function (?string $media) use ($extractYoutubeVideoId
                             </div>
                             <div class="min-w-0 flex-1">
                                 <div class="flex items-center gap-2">
-                                    <span class="gallery-order-number inline-flex min-w-[2rem] items-center justify-center rounded-full bg-white px-2 py-1 text-[11px] font-semibold text-slate-500">
-                                        <?php echo $reorderIndex + 1; ?>
-                                    </span>
+                                    <input
+                                        type="number"
+                                        class="gallery-order-input"
+                                        inputmode="numeric"
+                                        min="1"
+                                        max="<?php echo count($reorderCollection); ?>"
+                                        step="1"
+                                        list="gallery-order-options"
+                                        value="<?php echo $reorderIndex + 1; ?>"
+                                        draggable="false"
+                                        aria-label="Position for <?php echo htmlspecialchars($reorderTitle); ?>"
+                                    >
                                     <p class="truncate text-sm font-semibold text-slate-900"><?php echo htmlspecialchars($reorderTitle); ?></p>
                                 </div>
                                 <p class="mt-1 text-xs uppercase tracking-[0.14em] text-slate-400"><?php echo htmlspecialchars($reorderCategory); ?></p>
@@ -159,6 +168,11 @@ $resolveMediaType = static function (?string $media) use ($extractYoutubeVideoId
                         </article>
                     <?php endforeach; ?>
                 </div>
+                <datalist id="gallery-order-options">
+                    <?php for ($optionPosition = 1; $optionPosition <= count($reorderCollection); $optionPosition++): ?>
+                        <option value="<?php echo $optionPosition; ?>"></option>
+                    <?php endfor; ?>
+                </datalist>
             <?php else: ?>
                 <div class="rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-6 py-12 text-center">
                     <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-slate-400 shadow-sm">
@@ -193,6 +207,36 @@ $resolveMediaType = static function (?string $media) use ($extractYoutubeVideoId
         cursor: grabbing;
         box-shadow: 0 20px 42px rgba(15, 23, 42, 0.16);
     }
+
+    .gallery-order-input {
+        width: 3.25rem;
+        flex-shrink: 0;
+        border-radius: 9999px;
+        border: 1px solid #cbd5e1;
+        background: #fff;
+        padding: 0.25rem 0.4rem;
+        text-align: center;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #334155;
+        cursor: text;
+        transition: border-color 150ms ease, box-shadow 150ms ease;
+    }
+
+    .gallery-order-input:hover {
+        border-color: #94a3b8;
+    }
+
+    .gallery-order-input:focus {
+        outline: none;
+        border-color: #C8A951;
+        box-shadow: 0 0 0 3px rgba(200, 169, 81, 0.2);
+    }
+
+    .gallery-order-input.is-updated {
+        border-color: #10b981;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
+    }
 </style>
 
 <script>
@@ -219,11 +263,40 @@ const refreshOrderNumbers = () => {
     }
 
     reorderList.querySelectorAll('.gallery-order-card').forEach((card, index) => {
-        const number = card.querySelector('.gallery-order-number');
-        if (number) {
-            number.textContent = String(index + 1);
+        const input = card.querySelector('.gallery-order-input');
+        if (input && document.activeElement !== input) {
+            input.value = String(index + 1);
+        } else if (input) {
+            input.dataset.pendingValue = String(index + 1);
         }
     });
+};
+
+const moveCardToPosition = (card, targetPosition) => {
+    if (!reorderList) {
+        return;
+    }
+
+    const cards = Array.from(reorderList.querySelectorAll('.gallery-order-card'));
+    const total = cards.length;
+    const currentIndex = cards.indexOf(card);
+    if (currentIndex === -1 || total === 0) {
+        return;
+    }
+
+    const clampedTarget = Math.min(Math.max(1, targetPosition), total);
+    cards.splice(currentIndex, 1);
+    cards.splice(clampedTarget - 1, 0, card);
+    cards.forEach((orderedCard) => reorderList.appendChild(orderedCard));
+
+    refreshOrderNumbers();
+    setReorderDirtyState();
+
+    const input = card.querySelector('.gallery-order-input');
+    if (input) {
+        input.classList.add('is-updated');
+        window.setTimeout(() => input.classList.remove('is-updated'), 700);
+    }
 };
 
 const setReorderDirtyState = () => {
@@ -282,6 +355,37 @@ if (reorderList) {
                 card.after(draggedOrderCard);
             } else {
                 card.before(draggedOrderCard);
+            }
+        });
+    });
+
+    reorderList.querySelectorAll('.gallery-order-input').forEach((input) => {
+        // Keep drag from hijacking clicks/typing/selection inside the input.
+        ['mousedown', 'click', 'dragstart'].forEach((eventName) => {
+            input.addEventListener(eventName, (event) => event.stopPropagation());
+        });
+
+        input.addEventListener('change', () => {
+            const card = input.closest('.gallery-order-card');
+            if (!card) {
+                return;
+            }
+
+            const targetPosition = parseInt(input.value, 10);
+            if (Number.isNaN(targetPosition)) {
+                refreshOrderNumbers();
+                return;
+            }
+
+            moveCardToPosition(card, targetPosition);
+        });
+
+        input.addEventListener('focus', () => input.select());
+
+        input.addEventListener('blur', () => {
+            if (input.dataset.pendingValue) {
+                input.value = input.dataset.pendingValue;
+                delete input.dataset.pendingValue;
             }
         });
     });
