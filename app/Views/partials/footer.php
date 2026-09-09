@@ -1,0 +1,394 @@
+<footer class="bg-charcoal text-white mt-20" style="<?php echo innerHeroBackgroundStyle(); ?>">
+    <!-- Main Footer Content -->
+    <div class="md:max-w-[1320px] mx-auto site-gutter py-16" >
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+            <!-- Brand Section -->
+            <div class="lg:col-span-1">
+                <div class="mb-6">
+                    <div class="flex flex-col leading-none mb-4">
+                        <h3 class="text-2xl tracking-widest font-semibold" style="color: #C8A951; font-family: 'Cormorant Garamond', serif; letter-spacing: 0.38em;">SAPPHIRE</h3>
+                        <p class="text-[0.65rem] tracking-widest font-semibold mt-1 text-gray-200" style=" font-family: 'Montserrat', sans-serif; letter-spacing: 0.2em;">EVENTS & DECORATIONS</p>
+                    </div>
+                    <p class="text-gray-200 text-sm leading-relaxed">
+                        Adding glitz & glam to your events since day one. Transforming ordinary moments into extraordinary memories.
+                    </p>
+                </div>
+                
+                <!-- Social Media Icons -->
+                <div class="mt-6">
+                    <p class="text-xs font-semibold uppercase text-gray-300 mb-4">Follow Us</p>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="https://www.instagram.com/sapphire_events__decorations" target="_blank" rel="noopener noreferrer"
+                           class="footer-social-link footer-social-instagram w-12 h-12 rounded-full flex items-center justify-center"
+                           aria-label="Instagram">
+                            <i class="fab fa-instagram text-base" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://www.facebook.com/rararestperfumes" target="_blank" rel="noopener noreferrer"
+                           class="footer-social-link footer-social-facebook w-12 h-12 rounded-full flex items-center justify-center"
+                           aria-label="Facebook">
+                            <i class="fab fa-facebook text-base" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@sapphire_events__" target="_blank" rel="noopener noreferrer"
+                           class="footer-social-link footer-social-tiktok w-12 h-12 rounded-full flex items-center justify-center"
+                           aria-label="TikTok">
+                            <i class="fab fa-tiktok text-base" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://www.whatsapp.com/catalog/3725160427/" target="_blank" rel="noopener noreferrer"
+                           class="footer-social-link footer-social-whatsapp w-12 h-12 rounded-full flex items-center justify-center"
+                           aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp text-base" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@SapphireEventsDecorations" target="_blank" rel="noopener noreferrer"
+                            class="footer-social-link footer-social-youtube w-12 h-12 rounded-full flex items-center justify-center"
+                            aria-label="YouTube">
+                            <i class="fab fa-youtube text-base" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Services -->
+            <div>
+                <h4 class="font-bold mb-6 uppercase text-sm tracking-wider" style="color: #C8A951;">Services</h4>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="<?php echo route('/services/1'); ?>" class="text-gray-200 hover:text-white transition-colors text-sm inline-flex items-center min-h-[44px] py-1">
+                            Wedding Planning
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo route('/services/2'); ?>" class="text-gray-200 hover:text-white transition-colors text-sm inline-flex items-center min-h-[44px] py-1">
+                            Birthday Parties
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo route('/services/3'); ?>" class="text-gray-200 hover:text-white transition-colors text-sm inline-flex items-center min-h-[44px] py-1">
+                            Proposals
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo route('/services/4'); ?>" class="text-gray-200 hover:text-white transition-colors text-sm inline-flex items-center min-h-[44px] py-1">
+                            Corporate Events
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo route('/services'); ?>" class="text-gray-100 hover:text-white transition-colors text-sm font-semibold inline-flex items-center min-h-[44px] py-1">
+                            All Services →
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Company -->
+            <div>
+                <h4 class="font-bold mb-6 uppercase text-sm tracking-wider" style="color: #C8A951;">Company</h4>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="<?php echo route('/'); ?>" class="text-gray-200 hover:text-white transition-colors text-sm inline-flex items-center min-h-[44px] py-1">
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo route('/packages'); ?>" class="text-gray-200 hover:text-white transition-colors text-sm inline-flex items-center min-h-[44px] py-1">
+                            Packages
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo route('/gallery'); ?>" class="text-gray-200 hover:text-white transition-colors text-sm inline-flex items-center min-h-[44px] py-1">
+                            Gallery
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo route('/about'); ?>" class="text-gray-200 hover:text-white transition-colors text-sm inline-flex items-center min-h-[44px] py-1">
+                            About Us
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo route('/team'); ?>" class="text-gray-200 hover:text-white transition-colors text-sm inline-flex items-center min-h-[44px] py-1">
+                            Our Team
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo route('/faqs'); ?>" class="text-gray-200 hover:text-white transition-colors text-sm inline-flex items-center min-h-[44px] py-1">
+                            FAQs
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo route('/contact'); ?>" class="text-gray-200 hover:text-white transition-colors text-sm inline-flex items-center min-h-[44px] py-1">
+                            Contact
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo route('/admin/login'); ?>" class="text-gray-200 hover:text-white transition-colors text-sm inline-flex items-center min-h-[44px] py-1">
+                            Admin Portal
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div>
+                <h4 class="font-bold mb-6 uppercase text-sm tracking-wider" style="color: #C8A951;">Get In Touch</h4>
+                <ul class="space-y-4">
+                    <li>
+                        <p class="text-gray-300 text-xs uppercase tracking-wider mb-1">Phone</p>
+                        <a href="tel:+3725160427" class="text-white hover:text-yellow-500 transition-colors text-sm font-semibold">
+                            +372-5160427
+                        </a>
+                    </li>
+                    <li>
+                        <p class="text-gray-300 text-xs uppercase tracking-wider mb-1">Email</p>
+                        <a href="mailto:Sapphireeventsglitz@gmail.com" class="text-white hover:text-yellow-500 transition-colors text-sm font-semibold break-all">
+                            Sapphireeventsglitz@gmail.com
+                        </a>
+                    </li>
+                    <li>
+                        <p class="text-gray-300 text-xs uppercase tracking-wider mb-1">Location</p>
+                        <p class="text-gray-200 text-sm">
+                            Laki 14a, room 502,<br>
+                            10621 Tallinn, Estonia
+                        </p>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Newsletter CTA -->
+            <div>
+                <h4 class="font-bold mb-6 uppercase text-sm tracking-wider" style="color: #C8A951;">Stay Updated</h4>
+                <p class="text-gray-200 text-sm mb-4">
+                    Get updates on our latest events and special offers.
+                </p>
+                <form id="footer-newsletter-form" class="space-y-2" method="POST" action="<?php echo route('/newsletter/subscribe'); ?>">
+                    <label for="footer-newsletter-email" class="sr-only" style="position:absolute;left:-10000px;">Email address</label>
+                    <input
+                        id="footer-newsletter-email"
+                        type="email"
+                        name="email"
+                        placeholder="Your email"
+                        class="w-full px-4 py-3 min-h-[44px] bg-gray-800 border border-gray-600 rounded text-white text-sm placeholder-gray-300 focus:outline-none focus:border-yellow-500 transition-colors"
+                        maxlength="254"
+                        autocomplete="email"
+                        required
+                    >
+                    <?php echo \App\Core\CSRF::hidden(); ?>
+                    <input
+                        type="text"
+                        name="website"
+                        tabindex="-1"
+                        autocomplete="off"
+                        aria-hidden="true"
+                        style="position:absolute;left:-10000px;opacity:0;height:0;width:0;pointer-events:none;"
+                    >
+                    <button
+                        type="submit"
+                        class="w-full px-4 py-3 min-h-[44px] rounded text-sm font-semibold transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                        style="background-color: #C8A951; color: #241a26;"
+                    >
+                        Subscribe
+                    </button>
+                    <p id="footer-newsletter-feedback" class="text-xs mt-2 text-gray-200" aria-live="polite"></p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-gray-800 my-8"></div>
+
+        <!-- Bottom Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center md:text-left">
+            <!-- Copyright -->
+            <div>
+                <p class="text-gray-300 text-xs">
+                    &copy; <?php echo date('Y'); ?> <span style="color: #C8A951;">Sapphire Events</span> & Decorations. All rights reserved.
+                </p>
+                <p class="text-gray-300 text-xs mt-1">
+                    Registration Code: 16666563
+                </p>
+            </div>
+
+            <!-- Legal Links -->
+            <div class="flex justify-center gap-4 flex-wrap">
+                <a href="#" class="text-gray-200 hover:text-white transition-colors text-xs inline-flex items-center min-h-[44px] py-1">
+                    Privacy Policy
+                </a>
+                <span class="text-gray-700">•</span>
+                <a href="#" class="text-gray-200 hover:text-white transition-colors text-xs inline-flex items-center min-h-[44px] py-1">
+                    Terms of Service
+                </a>
+                <span class="text-gray-700">•</span>
+                <a href="#" class="text-gray-200 hover:text-white transition-colors text-xs inline-flex items-center min-h-[44px] py-1">
+                    Cookies
+                </a>
+            </div>
+
+            <!-- Payment Methods & Badges -->
+            <div class="text-center md:text-right">
+                <p class="text-gray-300 text-xs mb-2">Secure & Trusted</p>
+                <div class="flex justify-center md:justify-end gap-2">
+                    <span class="inline-flex items-center gap-1 px-3 py-2 bg-gray-800 rounded text-xs text-gray-200">
+                        <i class="fas fa-lock text-green-400" aria-hidden="true"></i>
+                        SSL Secure
+                    </span>
+                    <span class="inline-flex items-center gap-1 px-3 py-2 bg-gray-800 rounded text-xs text-gray-200">
+                        <i class="fas fa-shield-alt" style="color: #C8A951;" aria-hidden="true"></i>
+                        Verified
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Border Accent -->
+    <div class="h-1" style="background: linear-gradient(90deg, transparent 0%, #c8a951 50%, transparent 100%);"></div>
+
+</footer>
+
+<style>
+    .footer-social-link {
+        color: #ffffff;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .footer-social-link:hover,
+    .footer-social-link:focus-visible {
+        transform: translateY(-3px) scale(1.06);
+    }
+
+    .footer-social-instagram {
+        background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+    }
+
+    .footer-social-instagram:hover {
+        box-shadow: 0 10px 24px rgba(214, 36, 159, 0.45);
+    }
+
+    .footer-social-facebook {
+        background-color: #1877f2;
+    }
+
+    .footer-social-facebook:hover {
+        box-shadow: 0 10px 24px rgba(24, 119, 242, 0.45);
+    }
+
+    .footer-social-tiktok {
+        background-color: #000000;
+    }
+
+    .footer-social-tiktok:hover {
+        box-shadow: 0 10px 24px rgba(37, 244, 238, 0.35);
+    }
+
+    .footer-social-whatsapp {
+        background-color: #25d366;
+    }
+
+    .footer-social-whatsapp:hover {
+        box-shadow: 0 10px 24px rgba(37, 211, 102, 0.45);
+    }
+
+    .footer-social-youtube {
+        background-color: #ff0000;
+    }
+
+    .footer-social-youtube:hover {
+        box-shadow: 0 10px 24px rgba(255, 0, 0, 0.45);
+    }
+</style>
+
+<script>
+(function () {
+    const form = document.getElementById('footer-newsletter-form');
+    if (!form) {
+        return;
+    }
+
+    const emailInput = form.querySelector('input[name="email"]');
+    const submitButton = form.querySelector('button[type="submit"]');
+    const feedback = document.getElementById('footer-newsletter-feedback');
+    const csrfInput = form.querySelector('input[name="_csrf_token"]');
+
+    const setFeedback = (message, type) => {
+        if (!feedback) {
+            return;
+        }
+        feedback.textContent = message;
+        feedback.classList.remove('text-gray-200', 'text-red-400', 'text-green-400', 'text-yellow-400');
+        if (type === 'error') {
+            feedback.classList.add('text-red-400');
+            return;
+        }
+        if (type === 'warn') {
+            feedback.classList.add('text-yellow-400');
+            return;
+        }
+        if (type === 'success') {
+            feedback.classList.add('text-green-400');
+            return;
+        }
+        feedback.classList.add('text-gray-200');
+    };
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        setFeedback('', 'neutral');
+
+        if (!emailInput || !emailInput.value.trim()) {
+            setFeedback('Please enter your email address.', 'error');
+            return;
+        }
+
+        submitButton.disabled = true;
+        const originalLabel = submitButton.textContent;
+        submitButton.textContent = 'Subscribing...';
+
+        try {
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            });
+
+            const data = await response.json();
+
+            if (data.csrf_token && csrfInput) {
+                csrfInput.value = data.csrf_token;
+            }
+
+            if (data.success) {
+                if (!(data.already_subscribed || data.reactivated)) {
+                    form.reset();
+                    if (csrfInput && data.csrf_token) {
+                        csrfInput.value = data.csrf_token;
+                    }
+                }
+
+                if (data.already_subscribed) {
+                    setFeedback(data.message || 'This email is already subscribed.', 'warn');
+                } else {
+                    setFeedback(data.message || 'Thank you for subscribing.', 'success');
+                }
+                return;
+            }
+
+            if (data.errors && data.errors.email) {
+                setFeedback(data.errors.email, 'error');
+                return;
+            }
+
+            if (response.status === 429) {
+                setFeedback(data.error || 'Too many attempts. Please try again later.', 'error');
+                return;
+            }
+
+            setFeedback(data.error || 'Unable to subscribe right now. Please try again later.', 'error');
+        } catch (error) {
+            setFeedback('Network error. Please check your connection and try again.', 'error');
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = originalLabel;
+        }
+    });
+})();
+</script>
+

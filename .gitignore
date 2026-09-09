@@ -1,0 +1,81 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies
+# NOTE: vendor/ is intentionally NOT excluded — it's tiny (~570KB, one
+# package: vlucas/phpdotenv) and committing it means the cPanel deploy step
+# can just copy it over rather than depending on Composer being available
+# in the server's deploy shell.
+/node_modules/
+/ai-model/
+/testing/
+/docs/
+/Microsoft/
+
+# Runtime and cache
+/storage/*.log
+/storage/logs/
+/public/error_log
+/storage/cache/
+/storage/sessions/
+/storage/views/
+/storage/translations-cache/
+/storage/image-backup-*/
+/bootstrap/cache/
+
+# User uploads and generated media — these live on the production server
+# already (cPanel) and must never be touched by a git-based deploy. Keep
+# them out of the repo entirely so a `git pull`/checkout on the server can
+# never create, overwrite, or delete anything inside them.
+/uploads/
+/public/uploads/
+/public/assets/images/
+/public/assets/uploads/
+/public/assets/videos/
+
+# Local databases and dumps
+*.sqlite
+*.sqlite3
+*.db
+*.sql
+*.dump
+
+# Archives and data exports
+*.zip
+*.tar
+*.gz
+*.7z
+*.rar
+*.csv
+*.xlsx
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*.pid
+*.seed
+
+# IDE/editor
+/.idea/
+/.vscode/
+*.code-workspace
+
+# Stray duplicate/backup copy of the live site (not part of this project's
+# source tree — has its own app/, public/, vendor/, and a 334MB .well-known.zip)
+/sapphire.sapphireeventglitz.com/
+
+# Unused leftover hosting-template assets (Namecheap default page stubs,
+# confirmed not referenced anywhere in app/public/routes/config)
+/nc_assets/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test and debug artifacts
+phpunit.result.cache

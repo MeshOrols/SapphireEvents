@@ -1,0 +1,19 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/sappuujz/public_html/
+    - /bin/mkdir -p $DEPLOYPATH/public/assets
+    - /bin/cp -R app $DEPLOYPATH
+    - /bin/cp -R config $DEPLOYPATH
+    - /bin/cp -R routes $DEPLOYPATH
+    - /bin/cp -R vendor $DEPLOYPATH
+    - /bin/cp -R public/assets/css $DEPLOYPATH/public/assets/
+    - /bin/cp -R public/assets/js $DEPLOYPATH/public/assets/
+    - /bin/cp public/index.php $DEPLOYPATH/public/index.php
+    - /bin/cp public/.htaccess $DEPLOYPATH/public/.htaccess
+    - /bin/cp public/.user.ini $DEPLOYPATH/public/.user.ini
+    - /bin/cp public/robots.txt $DEPLOYPATH/public/robots.txt
+    - /bin/cp .htaccess $DEPLOYPATH/.htaccess
+    - /bin/cp composer.json $DEPLOYPATH/composer.json
+    - /bin/cp composer.lock $DEPLOYPATH/composer.lock
+    - /bin/cp generate-sitemap.php $DEPLOYPATH/generate-sitemap.php

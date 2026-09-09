@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /api/
+Disallow: /storage/
+Disallow: /config/
+Disallow: /app/
+Disallow: /vendor/
+Allow: /lang
+
+Sitemap: https://www.sapphireeventglitz.com/sitemap.xml

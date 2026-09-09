@@ -1,0 +1,17 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: sapphire_local_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sapphire_events
+      MYSQL_USER: sapphire
+      MYSQL_PASSWORD: sapphire
+    ports:
+      - "3309:3306"
+    volumes:
+      - sapphire_local_db_data:/var/lib/mysql
+
+volumes:
+  sapphire_local_db_data:
