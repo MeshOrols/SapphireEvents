@@ -393,6 +393,36 @@
             border-radius: 2px;
         }
 
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            min-height: 44px;
+            padding: 0.7rem 1.1rem;
+            border-radius: 9999px;
+            font-family: var(--font-ui);
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--theme-primary);
+            background-color: transparent;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        .mobile-nav-link:hover,
+        .mobile-nav-link:focus-visible {
+            background-color: color-mix(in srgb, var(--theme-accent) 16%, transparent);
+            color: var(--theme-primary);
+            outline: none;
+        }
+
+        .mobile-nav-link:active {
+            background-color: color-mix(in srgb, var(--theme-accent) 30%, transparent);
+        }
+
+        .mobile-nav-link.is-active {
+            background-color: var(--theme-primary);
+            color: #ffffff;
+        }
+
         section[style*="background-color: #F8F5F2"] {
             background-color: var(--blush-soft) !important;
         }

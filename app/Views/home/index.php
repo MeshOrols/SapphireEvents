@@ -104,7 +104,7 @@ $heroVideo = route('/assets/images/hero1.mp4');
     </div>
 </section>
 <section class="home-deferred-section py-16 md:py-12 overflow-hidden" aria-labelledby="home-about-title">
-    <div class="w-full" style="background-color: #FFFFFF;">
+    <div class="w-full" style="background-color: #FBF0F8;">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
             <div class="relative" data-aos="fade-right">
                 <div class="about-feature-image overflow-hidden luxury-shadow bg-[#f3eee8]">
@@ -300,7 +300,7 @@ $heroVideo = route('/assets/images/hero1.mp4');
         </div>
 
     <?php elseif (!empty($item['image']) && $finalMediaType === 'video'): ?>
-        <video src="<?= htmlspecialchars($finalMediaPath); ?>" class="gallery-card-video absolute inset-0 w-full h-full object-cover" muted playsinline loop></video>
+        <video src="<?= htmlspecialchars($finalMediaPath); ?>" class="gallery-card-video absolute inset-0 w-full h-full object-cover" muted playsinline loop preload="metadata"></video>
         <div class="absolute inset-0 flex items-center justify-center bg-black/10">
             <i class="fas fa-play text-white text-2xl"></i>
         </div>
@@ -565,6 +565,22 @@ $heroVideo = route('/assets/images/hero1.mp4');
 });
         
         
+
+        // --- iOS Safari shows a black frame for muted <video> thumbnails that
+        // never actually play (no poster set). Seeking a hair past 0 forces it
+        // to decode and paint a real frame as a static thumbnail. ---
+        document.querySelectorAll('.gallery-card-video').forEach((video) => {
+            const paintThumbnailFrame = () => {
+                if (video.currentTime === 0) {
+                    video.currentTime = 0.1;
+                }
+            };
+            if (video.readyState >= 1) {
+                paintThumbnailFrame();
+            } else {
+                video.addEventListener('loadedmetadata', paintThumbnailFrame, { once: true });
+            }
+        });
 
         // --- Lightbox Logic ---
         const galleryItems = Array.from(document.querySelectorAll('#gallery-grid .gallery-item'));

@@ -116,15 +116,17 @@ $desktopRightNav = [
             </div>
         </div>
 
-        <div id="mobile-menu" class="hidden md:hidden absolute left-0 right-0 top-full mt-2 z-50 rounded-xl border border-gray-200 bg-white p-4 space-y-4 shadow-xl max-h-[75vh] overflow-y-auto">
-            <a href="<?php echo route('/'); ?>" class="block site-nav-link<?php echo $isActiveNavLink(route('/')) ? ' is-active' : ''; ?> py-3 min-h-[44px]" style="font-family: var(--font-ui); font-weight: 500;"><?php echo htmlspecialchars(trans('pages.header.home', 'Home')); ?></a>
-            <a href="<?php echo route('/services'); ?>" class="block site-nav-link<?php echo $isActiveNavLink(route('/services')) ? ' is-active' : ''; ?> py-3 min-h-[44px]" style="font-family: var(--font-ui); font-weight: 500;"><?php echo htmlspecialchars(trans('pages.header.services', 'Services')); ?></a>
-            <a href="<?php echo route('/packages'); ?>" class="block site-nav-link<?php echo $isActiveNavLink(route('/packages')) ? ' is-active' : ''; ?> py-3 min-h-[44px]" style="font-family: var(--font-ui); font-weight: 500;"><?php echo htmlspecialchars(trans('pages.header.packages', 'Packages')); ?></a>
-            <a href="<?php echo route('/gallery'); ?>" class="block site-nav-link<?php echo $isActiveNavLink(route('/gallery')) ? ' is-active' : ''; ?> py-3 min-h-[44px]" style="font-family: var(--font-ui); font-weight: 500;"><?php echo htmlspecialchars(trans('pages.header.gallery', 'Gallery')); ?></a>
-            <a href="<?php echo route('/about'); ?>" class="block site-nav-link<?php echo $isActiveNavLink(route('/about')) ? ' is-active' : ''; ?> py-3 min-h-[44px]" style="font-family: var(--font-ui); font-weight: 500;"><?php echo htmlspecialchars(trans('pages.header.about', 'About')); ?></a>
-            <a href="<?php echo route('/team'); ?>" class="block site-nav-link<?php echo $isActiveNavLink(route('/team')) ? ' is-active' : ''; ?> py-3 min-h-[44px]" style="font-family: var(--font-ui); font-weight: 500;"><?php echo htmlspecialchars(trans('pages.header.team', 'Meet Our Team')); ?></a>
-            <a href="<?php echo route('/faqs'); ?>" class="block site-nav-link<?php echo $isActiveNavLink(route('/faqs')) ? ' is-active' : ''; ?> py-3 min-h-[44px]" style="font-family: var(--font-ui); font-weight: 500;"><?php echo htmlspecialchars(trans('pages.header.faqs', 'FAQs')); ?></a>
-            <a href="<?php echo route('/contact'); ?>" class="block site-nav-link<?php echo $isActiveNavLink(route('/contact')) ? ' is-active' : ''; ?> py-3 min-h-[44px]" style="font-family: var(--font-ui); font-weight: 500;"><?php echo htmlspecialchars(trans('pages.header.contact', 'Contact')); ?></a>
+        <div id="mobile-menu" class="hidden md:hidden absolute left-0 right-0 top-full mt-2 z-50 rounded-xl border border-gray-200 bg-white p-3 space-y-4 shadow-xl max-h-[75vh] overflow-y-auto">
+            <nav class="space-y-1" aria-label="<?php echo htmlspecialchars(trans('pages.header.primary_navigation', 'Primary')); ?>">
+                <a href="<?php echo route('/'); ?>" class="mobile-nav-link<?php echo $isActiveNavLink(route('/')) ? ' is-active' : ''; ?>"><?php echo htmlspecialchars(trans('pages.header.home', 'Home')); ?></a>
+                <a href="<?php echo route('/services'); ?>" class="mobile-nav-link<?php echo $isActiveNavLink(route('/services')) ? ' is-active' : ''; ?>"><?php echo htmlspecialchars(trans('pages.header.services', 'Services')); ?></a>
+                <a href="<?php echo route('/packages'); ?>" class="mobile-nav-link<?php echo $isActiveNavLink(route('/packages')) ? ' is-active' : ''; ?>"><?php echo htmlspecialchars(trans('pages.header.packages', 'Packages')); ?></a>
+                <a href="<?php echo route('/gallery'); ?>" class="mobile-nav-link<?php echo $isActiveNavLink(route('/gallery')) ? ' is-active' : ''; ?>"><?php echo htmlspecialchars(trans('pages.header.gallery', 'Gallery')); ?></a>
+                <a href="<?php echo route('/about'); ?>" class="mobile-nav-link<?php echo $isActiveNavLink(route('/about')) ? ' is-active' : ''; ?>"><?php echo htmlspecialchars(trans('pages.header.about', 'About')); ?></a>
+                <a href="<?php echo route('/team'); ?>" class="mobile-nav-link<?php echo $isActiveNavLink(route('/team')) ? ' is-active' : ''; ?>"><?php echo htmlspecialchars(trans('pages.header.team', 'Meet Our Team')); ?></a>
+                <a href="<?php echo route('/faqs'); ?>" class="mobile-nav-link<?php echo $isActiveNavLink(route('/faqs')) ? ' is-active' : ''; ?>"><?php echo htmlspecialchars(trans('pages.header.faqs', 'FAQs')); ?></a>
+                <a href="<?php echo route('/contact'); ?>" class="mobile-nav-link<?php echo $isActiveNavLink(route('/contact')) ? ' is-active' : ''; ?>"><?php echo htmlspecialchars(trans('pages.header.contact', 'Contact')); ?></a>
+            </nav>
 
             <div class="pt-4 border-t border-gray-200">
                 <p class="text-xs font-semibold text-gray-500 mb-3" style="font-family: var(--font-ui);"><?php echo htmlspecialchars(trans('pages.header.switch_language', 'Switch Language')); ?></p>

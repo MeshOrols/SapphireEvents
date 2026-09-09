@@ -676,22 +676,37 @@ document.addEventListener('keydown', (e) => {
 // Video Hover Auto-play
 document.addEventListener('DOMContentLoaded', () => {
     const galleryCards = document.querySelectorAll('.gallery-card');
-    
+
     galleryCards.forEach(card => {
         const video = card.querySelector('.gallery-video');
 
         if (video) {
+            // iOS Safari shows a black frame for muted <video> thumbnails that
+            // never actually play (no poster set). Seeking a hair past 0 forces
+            // it to decode and paint a real frame as a static thumbnail.
+            const paintThumbnailFrame = () => {
+                if (video.currentTime === 0) {
+                    video.currentTime = 0.1;
+                }
+            };
+            if (video.readyState >= 1) {
+                paintThumbnailFrame();
+            } else {
+                video.addEventListener('loadedmetadata', paintThumbnailFrame, { once: true });
+            }
+
             // Auto-play on hover
             card.addEventListener('mouseenter', () => {
                 video.play().catch(err => {
                     console.log('Auto-play prevented:', err);
                 });
             });
-            
-            // Pause and reset on mouse leave
+
+            // Pause and reset on mouse leave (back to the painted thumbnail
+            // frame, not 0, so it doesn't go black again on iOS)
             card.addEventListener('mouseleave', () => {
                 video.pause();
-                video.currentTime = 0;
+                video.currentTime = 0.1;
             });
         }
     });
