@@ -11,7 +11,7 @@ use App\Models\Testimonial;
 
 class HomeController extends Controller
 {
-    private const HOME_CACHE_VERSION = 'v3';
+    private const HOME_CACHE_VERSION = 'v4';
 
     public function index()
     {
@@ -29,7 +29,7 @@ class HomeController extends Controller
         $packageCategory = new PackageCategory();
         $testimonial = new Testimonial();
 
-        $featuredGallery = $gallery->getFeatured(24);
+        $featuredGallery = $gallery->getFeaturedFilled(24);
         $services = $service->getLatestWithImage(10);
         $featuredPackages = $package->getFeatured(6);
         $packageCategories = $packageCategory->getWithPackageCount(6);

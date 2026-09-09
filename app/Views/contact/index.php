@@ -322,7 +322,7 @@ ob_start();
                 </div>
                 <div class="relative h-[380px] md:h-[430px]">
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2031.123456789!2d24.6565!3d59.3956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTnCsDIzJzQ0LjIiTiAyNMKwMzknMjMuNCJF!5e0!3m2!1sen!2see!4v1234567890"
+                        src="https://www.google.com/maps?q=<?php echo rawurlencode('Laki 14a, 10621 Tallinn, Estonia'); ?>&output=embed"
                         width="100%"
                         height="100%"
                         style="border:0;"
@@ -374,7 +374,7 @@ ob_start();
                 <div class="mt-6 pt-6 border-t border-gray-100">
                     <p class="text-sm text-gray-600 mb-3"><?php echo htmlspecialchars(trans('content.contact.faq.need_more', 'Need more details?')); ?></p>
                     <a href="/faqs" class="inline-flex items-center text-sm font-semibold" style="color: #0F3D3E; letter-spacing: 0.05em; text-transform: uppercase;">
-                        <?php echo htmlspecialchars(trans('content.contact.faq_page', 'Visit the full FAQ page')); ?> <i class="fas fa-arrow-right ml-2::before"></i>
+                        <?php echo htmlspecialchars(trans('content.contact.faq_page', 'Visit the full FAQ page')); ?> <i class="fas fa-arrow-right ml-2"></i>
                     </a><br><br>
                     <a href="mailto:Sapphireeventsglitz@gmail.com" class="inline-flex items-center text-sm font-semibold" style="color: #0F3D3E; letter-spacing: 0.05em; text-transform: uppercase;">
                         <?php echo htmlspecialchars(trans('content.contact.faq.email_team', 'Email Our Team')); ?> <i class="fas fa-arrow-right ml-2"></i>

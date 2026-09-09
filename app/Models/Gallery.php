@@ -74,6 +74,30 @@ class Gallery extends Model
         return $this->localizeRecords($stmt->fetchAll(), ['title', 'description', 'category_name']);
     }
 
+    /**
+     * Featured items first, then filled up to $limit with the most recent
+     * remaining items so the homepage portfolio always shows a full grid
+     * even when fewer than $limit items are explicitly marked as featured.
+     */
+    public function getFeaturedFilled(int $limit = 24)
+    {
+        $categoryNameSelect = $this->localizedColumnExpression(
+            'gallery_categories',
+            'gc',
+            'name',
+            'category_name'
+        );
+        $stmt = $this->connection->prepare(
+            "SELECT gi.*, {$categoryNameSelect} FROM {$this->table} gi
+             JOIN gallery_categories gc ON gi.category_id = gc.id
+             ORDER BY gi.is_featured DESC, gi.display_order ASC, gi.created_at DESC
+             LIMIT :limit"
+        );
+        $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $this->localizeRecords($stmt->fetchAll(), ['title', 'description', 'category_name']);
+    }
+
     public function getByCategory(int $categoryId, int $page, int $perPage)
     {
         $offset = ($page - 1) * $perPage;
