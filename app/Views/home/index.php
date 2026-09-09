@@ -122,7 +122,7 @@ $heroVideo = route('/assets/images/hero1.mp4');
                         <?php echo htmlspecialchars(trans('content.home.about_section.title', 'Let Us Plan & <br> Decorate Your Next Event')); ?>
                     </h2>
 
-                    <div class="about-content-grid grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_220px] lg:grid-cols-[minmax(0,1fr)_280px] gap-6 sm:gap-8 lg:gap-10 items-start">
+                    <div class="about-content-grid grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_220px] lg:grid-cols-[minmax(0,1fr)_320px] gap-6 sm:gap-8 lg:gap-10 items-start">
                         <div class="about-copy">
                             <p class="home-section-copy text-gray-700 mb-4" style="font-family: 'Montserrat', sans-serif;">
                                 <?php echo htmlspecialchars(trans('content.home.about_section.paragraph_1', 'We founded Sapphire Events & Decorations with one goal in mind: to design and create unforgettable memories.')); ?>
@@ -881,14 +881,12 @@ lightboxVideo.play().catch(() => {});
         aspect-ratio: 2 / 3;
         border-radius: 1.25rem;
         background: #f3eee8;
-        border: 3px solid rgba(200, 169, 81, 0.45);
-        padding: 6px;
     }
 
     .about-ceo-media img {
         width: 100%;
         height: 100%;
-        border-radius: 0.85rem;
+        border-radius: 1.25rem;
     }
 
     .about-ceo-caption {
@@ -936,13 +934,13 @@ lightboxVideo.play().catch(() => {});
     .service-scroll-card-inner {
         height: 100%;
         display: grid;
-        grid-template-rows: 250px minmax(0, 1fr);
+        grid-template-rows: auto minmax(0, 1fr);
         width: 100%;
     }
 
     .service-scroll-image-wrap {
         overflow: hidden;
-        height: 100%;
+        aspect-ratio: 4 / 3;
     }
 
     .service-scroll-image {
@@ -1117,11 +1115,7 @@ lightboxVideo.play().catch(() => {});
 
         .service-scroll-card-inner {
             height: auto;
-            grid-template-rows: 210px minmax(0, 1fr);
-        }
-
-        .service-scroll-image-wrap {
-            height: 210px;
+            grid-template-rows: auto minmax(0, 1fr);
         }
 
         .service-scroll-content {
@@ -1204,7 +1198,7 @@ lightboxVideo.play().catch(() => {});
         }
 
         .about-ceo-figure {
-            max-width: 280px;
+            max-width: 320px;
         }
     }
 
