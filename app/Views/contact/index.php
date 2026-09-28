@@ -110,7 +110,7 @@ ob_start();
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
                             <label class="contact-label" for="contact-event-date"><?php echo htmlspecialchars(trans('content.contact.form.event_date', 'Date of the Event')); ?> <span class="contact-required-indicator" aria-hidden="true">*</span></label>
-                            <input id="contact-event-date" type="date" name="event_date" required class="contact-input" autocomplete="off">
+                            <input id="contact-event-date" type="date" name="event_date" required min="<?php echo earliestEventDate(); ?>" class="contact-input" autocomplete="off">
                             <small class="contact-error error-event_date"></small>
                         </div>
                         <div>
@@ -412,7 +412,6 @@ ob_start();
         const submitBtn = document.getElementById('submit-btn');
         const messageDiv = document.getElementById('form-message');
         const faqButtons = document.querySelectorAll('.faq-toggle');
-        const eventDateInput = document.getElementById('contact-event-date');
         const eventTimeInput = document.getElementById('contact-event-time');
         const dropzone = document.getElementById('contact-dropzone');
         const inspirationInput = document.getElementById('contact-inspiration-image');
@@ -424,11 +423,6 @@ ob_start();
         const packageId = urlParams.get('package');
         if (packageId && packageIdField) {
             packageIdField.value = packageId;
-        }
-
-        if (eventDateInput) {
-            const today = new Date().toISOString().split('T')[0];
-            eventDateInput.setAttribute('min', today);
         }
 
         const setUploadFile = function (file) {

@@ -106,6 +106,12 @@ class PackageController extends Controller
             $this->redirect($target . '?error=validation');
         }
 
+        if (!isValidEventDate((string)$data['event_date'])) {
+            $targetSlug = $this->sanitize($_POST['category_slug'] ?? '');
+            $target = $targetSlug ? route('/packages/' . $targetSlug) : route('/packages');
+            $this->redirect($target . '?error=invalid-date');
+        }
+
         $package = new Package();
         $selectedPackage = $package->findWithCategory((int)$data['package_id']);
         if (!$selectedPackage) {

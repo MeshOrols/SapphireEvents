@@ -71,7 +71,11 @@ $categoryImageUrl = $getImageUrl($category['image'] ?? null);
 
         <?php if (!empty($bookingError)): ?>
             <div class="mb-6 p-4 rounded-lg bg-red-100 text-red-800 border border-red-200" data-aos="fade-up">
-                <?php echo htmlspecialchars(trans('content.package_category_page.feedback.error', 'Unable to submit booking. Please review your details and try again.')); ?>
+                <?php if ($bookingError === 'invalid-date'): ?>
+                    <?php echo htmlspecialchars(trans('content.package_category_page.feedback.invalid_date', 'Please choose today or a future date for your event.')); ?>
+                <?php else: ?>
+                    <?php echo htmlspecialchars(trans('content.package_category_page.feedback.error', 'Unable to submit booking. Please review your details and try again.')); ?>
+                <?php endif; ?>
             </div>
         <?php endif; ?>
 
@@ -157,7 +161,7 @@ $categoryImageUrl = $getImageUrl($category['image'] ?? null);
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-2" style="color: #0F3D3E;"><?php echo htmlspecialchars(trans('content.package_category_page.modal.fields.event_date', 'Preferred Date')); ?></label>
-                        <input type="date" name="event_date" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-600">
+                        <input type="date" name="event_date" required min="<?php echo earliestEventDate(); ?>" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-yellow-600">
                     </div>
                 </div>
 

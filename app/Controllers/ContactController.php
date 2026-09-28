@@ -78,14 +78,10 @@ class ContactController extends Controller
             return;
         }
 
-        if (!empty($data['event_date'])) {
-            $eventDate = \DateTime::createFromFormat('Y-m-d', $data['event_date']);
-            $isValidDate = $eventDate && $eventDate->format('Y-m-d') === $data['event_date'];
-            if (!$isValidDate) {
-                http_response_code(422);
-                $this->json(['errors' => ['event_date' => 'Event date must be a valid date']]);
-                return;
-            }
+        if (!isValidEventDate((string)$data['event_date'])) {
+            http_response_code(422);
+            $this->json(['errors' => ['event_date' => 'Please choose today or a future date for your event']]);
+            return;
         }
 
         if (!empty($data['event_time'])) {

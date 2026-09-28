@@ -22,6 +22,35 @@ if (!function_exists('configuredAppUrl')) {
     }
 }
 
+if (!function_exists('earliestEventDate')) {
+    /**
+     * Earliest bookable event date (today, business-local), as Y-m-d.
+     * Shared by the date inputs' `min` attribute and server-side validation.
+     *
+     * @return string
+     */
+    function earliestEventDate(): string {
+        return (new DateTimeImmutable('now', new DateTimeZone('Europe/Tallinn')))->format('Y-m-d');
+    }
+}
+
+if (!function_exists('isValidEventDate')) {
+    /**
+     * Check that a submitted event date is a real Y-m-d date and not in the past.
+     *
+     * @param string $value
+     * @return bool
+     */
+    function isValidEventDate(string $value): bool {
+        $date = DateTimeImmutable::createFromFormat('Y-m-d', $value);
+        if (!$date || $date->format('Y-m-d') !== $value) {
+            return false;
+        }
+
+        return $value >= earliestEventDate();
+    }
+}
+
 if (!function_exists('baseUrl')) {
     /**
      * Get the base URL of the application
