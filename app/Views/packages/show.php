@@ -140,6 +140,7 @@ $categoryImageUrl = $getImageUrl($category['image'] ?? null);
 
             <form method="POST" action="<?php echo route('/packages/book'); ?>" class="space-y-4">
                 <?php echo \App\Core\CSRF::hidden(); ?>
+                <?php echo \App\Core\SpamGuard::fields('package-booking'); ?>
                 <input type="hidden" name="package_id" id="selected-package-id" value="">
                 <input type="hidden" name="category_slug" value="<?php echo htmlspecialchars($category['slug']); ?>">
 

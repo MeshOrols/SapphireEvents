@@ -4,12 +4,64 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Core\CSRF;
+use App\Core\SpamGuard;
 use App\Models\Inquiry;
 use RuntimeException;
 use Throwable;
 
 class ContactController extends Controller
 {
+    private const SUCCESS_MESSAGE = 'Inquiry submitted successfully';
+
+    // Dropdown options for the contact form: translation key suffix => submitted value.
+    // The view renders these and store() only accepts these values.
+    public const SERVICE_TYPES = [
+        'backdrop_installation' => 'Backdrop Installation',
+        'community_event' => 'Community Event',
+        'corporate_event' => 'Corporate Event',
+        'engagement_proposal' => 'Engagement/Proposal',
+        'event_decoration' => 'Event Decoration',
+        'floral_services' => 'Floral Services',
+        'luxury_picnic' => 'Luxury Picnic',
+        'restaurant_decoration' => 'Restaurant Decoration',
+        'sponsored_event' => 'Sponsored Event',
+        'tablescape' => 'TableScape',
+        'wedding_decoration' => 'Wedding Decoration',
+        'other' => 'Other',
+    ];
+
+    public const EVENT_TYPES = [
+        'anniversary' => 'Anniversary',
+        'baby_shower' => 'Baby Shower',
+        'birthday' => 'Birthday',
+        'bridal_shower' => 'Bridal Shower',
+        'christmas_holiday' => 'Chrismas/Holiday',
+        'corporate' => 'Corporate',
+        'fathers_day' => "Father's Day",
+        'galentine' => 'Galentine',
+        'gender_reveal' => 'Gender Reveal',
+        'graduation' => 'Graduation',
+        'just_because' => 'Just Because',
+        'mothers_day' => "Mother's Day",
+        'movie_night' => 'Movie Night',
+        'proposal' => 'Proposal',
+        'romantic' => 'Romantic',
+        'thanksgiving_friendsgiving' => 'Thanksgiving/Friendsgiving',
+        'others' => 'Others',
+    ];
+
+    public const LEAD_SOURCES = [
+        'instagram' => 'Instagram',
+        'facebook' => 'Facebook',
+        'google' => 'Google',
+        'tiktok' => 'TikTok',
+        'friend_family' => 'Friend/Family',
+        'returning_client' => 'Returning Client',
+        'vendor_referral' => 'Vendor Referral',
+        'client_referral' => 'Client Referral',
+        'other' => 'Other',
+    ];
+
     public function index()
     {
         $this->view('contact.index', [
@@ -34,6 +86,13 @@ class ContactController extends Controller
         if (!isset($_POST['_csrf_token']) || !CSRF::validate($_POST['_csrf_token'])) {
             http_response_code(403);
             $this->json(['error' => 'CSRF token invalid']);
+            return;
+        }
+
+        $spamReason = SpamGuard::check('contact');
+        if ($spamReason !== null) {
+            SpamGuard::log('contact', $spamReason);
+            $this->json(['success' => true, 'message' => self::SUCCESS_MESSAGE]);
             return;
         }
 
@@ -84,14 +143,39 @@ class ContactController extends Controller
             return;
         }
 
-        if (!empty($data['event_time'])) {
-            $eventTime = \DateTime::createFromFormat('H:i', $data['event_time']);
-            $isValidTime = $eventTime && $eventTime->format('H:i') === $data['event_time'];
-            if (!$isValidTime) {
-                http_response_code(422);
-                $this->json(['errors' => ['event_time' => 'Event time must be a valid time']]);
-                return;
-            }
+        $eventTime = \DateTime::createFromFormat('H:i', $data['event_time']);
+        $isValidTime = $eventTime
+            && $eventTime->format('H:i') === $data['event_time']
+            && (int)$eventTime->format('i') % 5 === 0;
+        if (!$isValidTime) {
+            http_response_code(422);
+            $this->json(['errors' => ['event_time' => 'Event time must be a valid time']]);
+            return;
+        }
+
+        $fieldErrors = [];
+        if (!in_array($data['service_type'], self::SERVICE_TYPES, true)) {
+            $fieldErrors['service_type'] = 'Please select a service type from the list';
+        }
+        if ($data['event_type'] !== '' && !in_array($data['event_type'], self::EVENT_TYPES, true)) {
+            $fieldErrors['event_type'] = 'Please select an occasion from the list';
+        }
+        if ($data['lead_source'] !== '' && !in_array($data['lead_source'], self::LEAD_SOURCES, true)) {
+            $fieldErrors['lead_source'] = 'Please select an option from the list';
+        }
+        if (trim($data['phone']) !== '' && !isValidPhoneNumber($data['phone'])) {
+            $fieldErrors['phone'] = 'Please enter a valid phone number';
+        }
+        if (!preg_match('/\d/', $data['budget'])) {
+            $fieldErrors['budget'] = 'Please enter an approximate budget amount';
+        }
+        if (!preg_match('/\d+/', $data['guest_count'], $guestMatch) || (int)$guestMatch[0] < 1 || (int)$guestMatch[0] > 5000) {
+            $fieldErrors['guest_count'] = 'Please enter the number of guests';
+        }
+        if (!empty($fieldErrors)) {
+            http_response_code(422);
+            $this->json(['errors' => $fieldErrors]);
+            return;
         }
 
         $youtubeVideoUrl = trim((string)$data['youtube_video_url']);
@@ -167,7 +251,8 @@ class ContactController extends Controller
         try {
             $inquiry = new Inquiry();
             if ($inquiry->createInquiry($sanitizedData)) {
-                $this->json(['success' => true, 'message' => 'Inquiry submitted successfully']);
+                SpamGuard::recordSubmission();
+                $this->json(['success' => true, 'message' => self::SUCCESS_MESSAGE]);
                 return;
             }
         } catch (Throwable $e) {

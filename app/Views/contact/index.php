@@ -39,6 +39,7 @@ ob_start();
 
                 <form id="contact-form" method="POST" action="<?php echo route('/contact'); ?>" enctype="multipart/form-data" class="space-y-5 md:space-y-6">
                     <?php echo \App\Core\CSRF::hidden(); ?>
+                    <?php echo \App\Core\SpamGuard::fields('contact'); ?>
 
                     <div>
                         <div>
@@ -66,18 +67,9 @@ ob_start();
                             <label class="contact-label" for="contact-service-type"><?php echo htmlspecialchars(trans('content.contact.form.service_type', 'Service Type')); ?> <span class="contact-required-indicator" aria-hidden="true">*</span></label>
                             <select id="contact-service-type" name="service_type" required class="contact-input contact-select">
                                 <option value=""><?php echo htmlspecialchars(trans('content.contact.form.service_type_placeholder', 'Select service type')); ?></option>
-                                <option value="Backdrop Installation"><?php echo htmlspecialchars(trans('content.contact.form.service_types.backdrop_installation', 'Backdrop Installation')); ?></option>
-                                <option value="Community Event"><?php echo htmlspecialchars(trans('content.contact.form.service_types.community_event', 'Community Event')); ?></option>
-                                <option value="Corporate Event"><?php echo htmlspecialchars(trans('content.contact.form.service_types.corporate_event', 'Corporate Event')); ?></option>
-                                <option value="Engagement/Proposal"><?php echo htmlspecialchars(trans('content.contact.form.service_types.engagement_proposal', 'Engagement/Proposal')); ?></option>
-                                <option value="Event Decoration">Event Decoration</option>
-                                <option value="Floral Services"><?php echo htmlspecialchars(trans('content.contact.form.service_types.floral_services', 'Floral Services')); ?></option>
-                                <option value="Luxury Picnic"><?php echo htmlspecialchars(trans('content.contact.form.service_types.luxury_picnic', 'Luxury Picnic')); ?></option>
-                                <option value="Restaurant Decoration"><?php echo htmlspecialchars(trans('content.contact.form.service_types.restaurant_decoration', 'Restaurant Decoration')); ?></option>
-                                <option value="Sponsored Event"><?php echo htmlspecialchars(trans('content.contact.form.service_types.sponsored_event', 'Sponsored Event')); ?></option>
-                                <option value="TableScape"><?php echo htmlspecialchars(trans('content.contact.form.service_types.tablescape', 'TableScape')); ?></option>
-                                <option value="Wedding Decoration"><?php echo htmlspecialchars(trans('content.contact.form.service_types.wedding_decoration', 'Wedding Decoration')); ?></option>
-                                <option value="Other"><?php echo htmlspecialchars(trans('content.contact.form.service_types.other', 'Other')); ?></option>
+                                <?php foreach (\App\Controllers\ContactController::SERVICE_TYPES as $optionKey => $optionValue): ?>
+                                    <option value="<?php echo htmlspecialchars($optionValue); ?>"><?php echo htmlspecialchars(trans('content.contact.form.service_types.' . $optionKey, $optionValue)); ?></option>
+                                <?php endforeach; ?>
                             </select>
                             <small class="contact-error error-service_type"></small>
                         </div>
@@ -85,23 +77,9 @@ ob_start();
                             <label class="contact-label" for="contact-event-type"><?php echo htmlspecialchars(trans('content.contact.form.event_type', 'Event Type')); ?></label>
                             <select id="contact-event-type" name="event_type" class="contact-input contact-select">
                                 <option value=""><?php echo htmlspecialchars(trans('content.contact.form.event_type_placeholder', 'Select event occasion')); ?></option>
-                                <option value="Anniversary"><?php echo htmlspecialchars(trans('content.contact.form.event_types.anniversary', 'Anniversary')); ?></option>
-                                <option value="Baby Shower"><?php echo htmlspecialchars(trans('content.contact.form.event_types.baby_shower', 'Baby Shower')); ?></option>
-                                <option value="Birthday"><?php echo htmlspecialchars(trans('content.contact.form.event_types.birthday', 'Birthday')); ?></option>
-                                <option value="Bridal Shower"><?php echo htmlspecialchars(trans('content.contact.form.event_types.bridal_shower', 'Bridal Shower')); ?></option>
-                                <option value="Chrismas/Holiday"><?php echo htmlspecialchars(trans('content.contact.form.event_types.christmas_holiday', 'Chrismas/Holiday')); ?></option>
-                                <option value="Corporate"><?php echo htmlspecialchars(trans('content.contact.form.event_types.corporate', 'Corporate')); ?></option>
-                                <option value="Father's Day"><?php echo htmlspecialchars(trans('content.contact.form.event_types.fathers_day', "Father's Day")); ?></option>
-                                <option value="Galentine"><?php echo htmlspecialchars(trans('content.contact.form.event_types.galentine', 'Galentine')); ?></option>
-                                <option value="Gender Reveal"><?php echo htmlspecialchars(trans('content.contact.form.event_types.gender_reveal', 'Gender Reveal')); ?></option>
-                                <option value="Graduation"><?php echo htmlspecialchars(trans('content.contact.form.event_types.graduation', 'Graduation')); ?></option>
-                                <option value="Just Because"><?php echo htmlspecialchars(trans('content.contact.form.event_types.just_because', 'Just Because')); ?></option>
-                                <option value="Mother's Day"><?php echo htmlspecialchars(trans('content.contact.form.event_types.mothers_day', "Mother's Day")); ?></option>
-                                <option value="Movie Night"><?php echo htmlspecialchars(trans('content.contact.form.event_types.movie_night', 'Movie Night')); ?></option>
-                                <option value="Proposal"><?php echo htmlspecialchars(trans('content.contact.form.event_types.proposal', 'Proposal')); ?></option>
-                                <option value="Romantic"><?php echo htmlspecialchars(trans('content.contact.form.event_types.romantic', 'Romantic')); ?></option>
-                                <option value="Thanksgiving/Friendsgiving"><?php echo htmlspecialchars(trans('content.contact.form.event_types.thanksgiving_friendsgiving', 'Thanksgiving/Friendsgiving')); ?></option>
-                                <option value="Others"><?php echo htmlspecialchars(trans('content.contact.form.event_types.others', 'Others')); ?></option>
+                                <?php foreach (\App\Controllers\ContactController::EVENT_TYPES as $optionKey => $optionValue): ?>
+                                    <option value="<?php echo htmlspecialchars($optionValue); ?>"><?php echo htmlspecialchars(trans('content.contact.form.event_types.' . $optionKey, $optionValue)); ?></option>
+                                <?php endforeach; ?>
                             </select>
                             <small class="contact-error error-event_type"></small>
                         </div>
@@ -160,15 +138,9 @@ ob_start();
                             <label class="contact-label" for="contact-lead-source"><?php echo htmlspecialchars(trans('content.contact.form.lead_source', 'How Did You Hear About Us?')); ?></label>
                             <select id="contact-lead-source" name="lead_source" class="contact-input contact-select">
                                 <option value=""><?php echo htmlspecialchars(trans('content.contact.form.lead_source_placeholder', 'Select an option')); ?></option>
-                                <option value="Instagram"><?php echo htmlspecialchars(trans('content.contact.form.lead_sources.instagram', 'Instagram')); ?></option>
-                                <option value="Facebook"><?php echo htmlspecialchars(trans('content.contact.form.lead_sources.facebook', 'Facebook')); ?></option>
-                                <option value="Google"><?php echo htmlspecialchars(trans('content.contact.form.lead_sources.google', 'Google')); ?></option>
-                                <option value="TikTok"><?php echo htmlspecialchars(trans('content.contact.form.lead_sources.tiktok', 'TikTok')); ?></option>
-                                <option value="Friend/Family"><?php echo htmlspecialchars(trans('content.contact.form.lead_sources.friend_family', 'Friend/Family')); ?></option>
-                                <option value="Returning Client"><?php echo htmlspecialchars(trans('content.contact.form.lead_sources.returning_client', 'Returning Client')); ?></option>
-                                <option value="Vendor Referral"><?php echo htmlspecialchars(trans('content.contact.form.lead_sources.vendor_referral', 'Vendor Referral')); ?></option>
-                                <option value="Client Referral"><?php echo htmlspecialchars(trans('content.contact.form.lead_sources.client_referral', 'Client Referral')); ?></option>
-                                <option value="Other"><?php echo htmlspecialchars(trans('content.contact.form.lead_sources.other', 'Other')); ?></option>
+                                <?php foreach (\App\Controllers\ContactController::LEAD_SOURCES as $optionKey => $optionValue): ?>
+                                    <option value="<?php echo htmlspecialchars($optionValue); ?>"><?php echo htmlspecialchars(trans('content.contact.form.lead_sources.' . $optionKey, $optionValue)); ?></option>
+                                <?php endforeach; ?>
                             </select>
                             <small class="contact-error error-lead_source"></small>
                         </div>

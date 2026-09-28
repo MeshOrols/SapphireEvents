@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Core\CSRF;
+use App\Core\SpamGuard;
 use App\Models\Inquiry;
 use App\Models\Package;
 use App\Models\PackageCategory;
@@ -81,6 +82,15 @@ class PackageController extends Controller
             $this->redirect(route('/packages'));
         }
 
+        $targetSlug = $this->sanitize((string)($_POST['category_slug'] ?? ''));
+        $target = $targetSlug ? route('/packages/' . $targetSlug) : route('/packages');
+
+        $spamReason = SpamGuard::check('package-booking');
+        if ($spamReason !== null) {
+            SpamGuard::log('package-booking', $spamReason);
+            $this->redirect($target . '?booked=1');
+        }
+
         $rules = [
             'name' => 'required|min:3|max:150',
             'email' => 'required|email',
@@ -100,15 +110,11 @@ class PackageController extends Controller
         ];
 
         $errors = $this->validate($data, $rules);
-        if (!empty($errors)) {
-            $targetSlug = $this->sanitize($_POST['category_slug'] ?? '');
-            $target = $targetSlug ? route('/packages/' . $targetSlug) : route('/packages');
+        if (!empty($errors) || !isValidPhoneNumber((string)$data['phone'])) {
             $this->redirect($target . '?error=validation');
         }
 
         if (!isValidEventDate((string)$data['event_date'])) {
-            $targetSlug = $this->sanitize($_POST['category_slug'] ?? '');
-            $target = $targetSlug ? route('/packages/' . $targetSlug) : route('/packages');
             $this->redirect($target . '?error=invalid-date');
         }
 
@@ -136,6 +142,7 @@ class PackageController extends Controller
 
         $target = route('/packages/' . $selectedPackage['category_slug']);
         if ($created) {
+            SpamGuard::recordSubmission();
             $this->redirect($target . '?booked=1');
         }
 

@@ -19,6 +19,7 @@
 /storage/logs/
 /public/error_log
 /storage/cache/
+/storage/rate-limits/
 /storage/sessions/
 /storage/views/
 /storage/translations-cache/

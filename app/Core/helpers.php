@@ -51,6 +51,25 @@ if (!function_exists('isValidEventDate')) {
     }
 }
 
+if (!function_exists('isValidPhoneNumber')) {
+    /**
+     * Loose phone number check: digits with optional leading +, spaces,
+     * dashes, dots and parentheses, and 6-15 digits in total.
+     *
+     * @param string $value
+     * @return bool
+     */
+    function isValidPhoneNumber(string $value): bool {
+        $value = trim($value);
+        if (!preg_match('/^\+?[0-9\s().-]+$/', $value)) {
+            return false;
+        }
+
+        $digitCount = strlen(preg_replace('/\D/', '', $value));
+        return $digitCount >= 6 && $digitCount <= 15;
+    }
+}
+
 if (!function_exists('baseUrl')) {
     /**
      * Get the base URL of the application
